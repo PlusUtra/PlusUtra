@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/A. Corpo Principal/inicio.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
+    <link rel="stylesheet" href="/Cadastro de Tu/CadastroTu.Css">
+    <title>Security App</title>
+</head>
+<body>
+
+    <nav class="aba-chave">
+        
+        <h1 id="titulo-inicio">CADASTRO DE TU</h1> <!--Nome do Documento-->
+        <input class="pesquisa" type="search"><!--Consultar coisas-->
+    </nav>
+
+    <section> <!--Seção do Documento-->
+
+       <form> <!--Prrenchimento de formulário-->
+        
+        <div> <!--Campo de informação DATA-->
+            <p><strong> DATA </strong><la><strong>*</strong></la></p>
+            <input class="inputs" type="datetime-local" id="dataHoraCampo" required>
+        </div>
+
+        <div><!--Campo de informação TU CADASTRO-->
+            <p><strong>TU CADASTRO </strong><la><strong>*</strong></la></p>
+            <input class="inputs" type="text" maxlength="10" id="tuCadastro" required>
+        </div>
+       
+    
+        <div><!--Campo de informação TRANSPORTADORA-->
+            <p><strong>TRANSPORTADORA</strong><la><strong>*</strong></la></p>
+            <select class="inputs" id="transportadora" >
+                <option value="ABREU LONDRINA">ABREU LONDRINA</option>
+                <option value="ABREU SÃO PAULO">ABREU SÃO PAULO</option>
+                <option value="BAT RIO DE JANEIRO">BAT RIO DE JANEIRO</option>
+                <option value="DENOBRE RIO DE JANEIRO">DENOBRE RIO DE JANEIRO</option>
+                <option value="DENOBRE SANTOS">DENOBRE SANTOS</option>
+                <option value="DENOBRE SÃO PAULO">DENOBRE SÃO PAULO</option>
+                <option value="DIVANTE 3/4">DIVANTE 3/4</option>
+                <option value="DIVANTE TOCO">DIVANTE TOCO</option>
+                <option value="DIVANTE TRUCK">DIVANTE TRUCK</option>
+                <option value="DLOG CURITIBA">DLOG CURITIBA</option>
+                <option value="FNC RIO DE JANEIRO">FNC RIO DE JANEIRO</option>
+                <option value="GONÇALVES OSASCO">GONÇALVES OSASCO</option>
+                <option value="MERCADO LIVRE">MERCADO LIVRE</option>
+                <option value="NASP CAMPINAS">NASP CAMPINAS</option>
+                <option value="NASP GUARULHOS">NASP GUARULHOS</option>
+                <option value="NASP HR">NASP HR</option>
+                <option value="NASP OSASCO">NASP OSASCO</option>
+                <option value="NS LOG RIBEIRÃO PRETO / S.J. DO RIO PRETO">NS LOG RIBEIRÃO PRETO / S.J. DO RIO PRETO</option>
+                <option value="RT LOG - GRU">RT LOG - GRU</option>
+                <option value="RED LOG">RED LOG</option>
+                <option value="SYG SÃO PAULO">SYG SÃO PAULO</option>
+                <option value="SYG - DEDICADO">SYG - DEDICADO</option>
+                <option value="SYG SOROCABA">SYG SOROCABA</option>
+                <option value="TEX">TEX</option>
+                <option value="UNIDOCKS">UNIDOCKS</option>
+                <option value="UNILOG ABC">UNILOG ABC</option>
+                <option value="UNILOG GUARULHOS">UNILOG GUARULHOS</option>
+                <option value="VALTER">VALTER</option>
+                <option value="VELOMASTER CAMPINAS">VELOMASTER CAMPINAS</option>
+                <option value="FIGUEREDO">FIGUEREDO</option>
+            </select>
+       
+       
+        </div>
+
+        <div> <!--Campo de informação CHAVE DADOS-->
+            <p><strong> CHAVE DADOS</strong><la><strong>*</strong></la></p>
+            <input class="inputs" id="chaveDados" disabled required>
+        </div>
+
+        <div> <!--Campo de informação DOCA-->
+            <p><strong> DOCA</strong><la><strong>*</strong></la></p>
+            <input class="inputs" required>
+        </div>
+
+        
+        <div> <!--Campo de informação QUANTIDADE DE UCS-->
+            <p><strong> QUANTIDADE DE UCS</strong><la><strong>*</strong></la></p>
+            <input class="inputs" required>
+        </div>
+
+        <div> <!--Campo de informação Botão de enviar informações prenchidas-->
+            <input class="salvar" type="submit" value="Save" id="btnSalvar">
+            <a href="/A. Corpo Principal/Inicio.html"><input class="cancelar" type="button" value="Cancelar"></a>
+        </div>
+    </form>
+    </section>
+
+    <script>
+
+
+        // Função para preencher o campo com a data e hora atual
+        function preencherDataHoraAtual() {
+            const campo = document.getElementById('dataHoraCampo');
+            const dataHoraAtual = new Date().toISOString().slice(0, 16); // Obtém a data e hora atual no formato yyyy-MM-ddTHH:mm
+            campo.value = dataHoraAtual;
+        }
+
+        // Chama a função para preencher o campo assim que a página for carregada
+        preencherDataHoraAtual();
+
+          // Obtém referências aos campos de entrada
+          const tuCadastroInput = document.getElementById('tuCadastro');
+        const transportadoraInput = document.getElementById('transportadora');
+        const chaveDadosInput = document.getElementById('chaveDados');
+
+        // Adiciona um ouvinte de eventos para monitorar as mudanças nos campos TU CADASTRO e TRANSPORTADORA
+        tuCadastroInput.addEventListener('input', preencherChaveDados);
+        transportadoraInput.addEventListener('input', preencherChaveDados);
+
+        // Função para preencher o campo CHAVE DADOS com os valores de TU CADASTRO e TRANSPORTADORA
+        function preencherChaveDados() {
+            const tuCadastroValue = tuCadastroInput.value;
+            const transportadoraValue = transportadoraInput.value;
+            
+            // Concatena os valores com duas underscores (__) e define o valor do campo CHAVE DADOS
+            chaveDadosInput.value = tuCadastroValue + '__' + transportadoraValue;
+        }
+
+
+         // Adiciona um ouvinte de eventos para o botão "Save"
+         const btnSalvar = document.getElementById('btnSalvar');
+
+            btnSalvar.addEventListener('click', function () {
+                alert('Os dados foram Cadastrados com sucesso!');
+            });
+
+
+    </script>
+
+</body>
+</html>

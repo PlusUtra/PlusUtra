@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/A. Corpo Principal/inicio.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
+    <link rel="stylesheet" href="/Cadastro de Tu/CadastroTu.Css">
+    <link rel="stylesheet" href="/Canck Pick/Canckpick.css">
+    <title>Security App</title>
+</head>
+<body>
+
+    <nav class="aba-chave">
+        
+        <h1 id="titulo-inicio">CANCK PICK</h1> <!--Nome do Documento-->
+        <input class="pesquisa" type="search"><!--Consultar coisas-->
+    </nav>
+
+
+    <table class="base">
+        <tr>
+            <th class="data"><m> Data </m></th>
+            <th class="tu"> <m>TU/PACOTE</m> </th>
+            <th class="uc"> <m>UC ORIGEM</m></th>
+            <th class="pedido"> <m>PEDIDO</m> </th>
+            <th class="lm"> <m>LM</m></th>
+            <th class="descricao"> <m>DESCRIÇÃO</m></th>
+            <th class="qtd"> <m>QTD</m></th>
+        </tr> 
+        <tr id="minhaTabela">
+            <td><m><input type="datetime-local" id="dataHoraCampo" required></m></td>
+            <td><m><input type="text" placeholder="Digite o número da TU"></m></td>
+            <td><m><input type="text" id="inputField" placeholder="Digite 13 Dígitos" oninput="validarInput(this)"></m></td>
+            <td><m><input type="text" placeholder="Digite o pedido"></m></td>
+            <td><m><input type="text" placeholder="Digite o LM produto"></m></td>
+            <td><m><input type="text" placeholder="Digite a descrição do produto"></m></td>
+            <td><m><input type="text" placeholder="Digite a quantidade"></m></td>
+        </tr>
+    </table>      
+
+
+
+
+    <script>
+
+        // Função para preencher o campo com a data e hora atual
+        function preencherDataHoraAtual() {
+            const campo = document.getElementById('dataHoraCampo');
+            const dataHoraAtual = new Date().toISOString().slice(0, 16); // Obtém a data e hora atual no formato yyyy-MM-ddTHH:mm
+            campo.value = dataHoraAtual;
+        }
+
+        // Chama a função para preencher o campo assim que a página for carregada
+        preencherDataHoraAtual();
+
+        // Atualiza o campo a cada segundo
+        setInterval(preencherDataHoraAtual, 100);
+
+    </script>
+
+
+    <script class="validações">
+
+function validarInput(input) {
+    const value = input.value.replace(/\D/g, ''); // Remove todos os caracteres não numéricos
+
+    // Verifica se há mais de 13 dígitos
+    if (value.length > 13) {
+        // Cria uma nova linha na tabela
+        const tabela = document.querySelector('.base');
+        const newRow = tabela.insertRow(tabela.rows.length);
+
+        // Clone os campos da linha anterior para a nova linha
+        for (let i = 0; i < 7; i++) {
+            const cell = newRow.insertCell(i);
+            const inputClone = input.parentNode.parentNode.parentNode.cells[i].querySelector('input').cloneNode(true);
+            inputClone.value = ''; // Limpa o valor dos campos clonados
+            cell.appendChild(inputClone);
+        }
+
+        // Define o valor do campo atual para os primeiros 13 dígitos
+        input.value = value.slice(0, 13);
+    }
+}
+
+</script>
+
+
+
+
+</body>
+</html>
