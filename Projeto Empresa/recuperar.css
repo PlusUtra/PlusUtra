@@ -1,0 +1,116 @@
+/* index.css */
+
+/* Estilos gerais */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Estilos para o cabeçalho */
+.main-menu {
+    background-color: #ffae00;
+    color: #fff;
+    padding: 10px;
+}
+
+.option-menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.option-menu a {
+    color: #000000;
+    text-decoration: none;
+    padding: 10px;
+}
+
+/* Estilos para o menu hamburguer */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.bar {
+    width: 25px;
+    height: 3px;
+    background-color: #fff;
+    margin: 3px 0;
+}
+
+/* Estilos para a tabela */
+table {
+    width: 100%;
+    max-width: 1000px;
+    margin: 20px auto;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+th {
+    background-color: #000000;
+    color: #fff;
+}
+
+
+h1 {
+    margin-top: 30px;
+}
+
+a:hover {
+    transition: 0.7s;
+    background-color: rgba(128, 128, 128, 0.562);
+    border-radius: 2px;
+}
+
+/* Estilos específicos para dispositivos móveis */
+@media (max-width: 1100px) {
+    .option-menu {
+        flex-direction: column;
+    }
+
+    .option-menu a {
+        margin-bottom: 10px;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
+    .menu {
+        display: none;
+        flex-direction: column;
+        background-color: #333;
+        padding: 10px;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+    }
+
+    .menu a {
+        color: #fff;
+        text-decoration: none;
+        padding: 10px;
+    }
+
+    input {
+        margin-left: 70vh;
+    }
+}
+
+@media (max-width: 800px) {
+    .main-menu {
+        width: 100%;
+    }
+
+
+}
