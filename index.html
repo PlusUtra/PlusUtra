@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <title>Login</title>
+    <style>
+        .hidden { display: none; }
+        .form-group { margin-bottom: 15px; }
+        input { padding: 8px; width: 100%; }
+        button { padding: 10px 20px; }
+    </style>
+</head>
+<body>
+
+    <section id="section-login">
+        <h2>LOGIN</h2>
+        <form id="login-form">
+            <div class="form-group">
+                <label for="ldap-username">Usuário LDAP:</label>
+                <input type="text" id="ldap-username" name="ldap-username" autocomplete="off" required>
+            </div>
+            <div class="form-group">
+                <label for="ldap-password">Senha LDAP:</label>
+                <input style="color: gray; background-color: whitesmoke;" type="text" id="ldap-password" name="ldap-password" autocomplete="off" disabled required>
+            </div>
+            <button id="login-button" type="submit" disabled>Logar-se</button>
+            <div id="erro-login" style="color: red; font-size: 17px; font-family: Arial, Helvetica, sans-serif;">
+                <!-- Mensagem de erro -->
+            </div>
+            <div id="sucesso-login" style="color: green; font-size: 17px; font-family: Arial, Helvetica, sans-serif;">
+                <!-- Mensagem de sucesso -->
+            </div>
+        </form>
+    </section>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+    <script>
+        // Configuração do Firebase (mantida da sua implementação)
+        var firebaseConfig = {
+            apiKey: "AIzaSyCNvIMFeW4tdoTdSYyd1zBY1bu2Wl-MmQc",
+            authDomain: "app9020exp.firebaseapp.com",
+            databaseURL: "https://app9020exp-default-rtdb.firebaseio.com",
+            projectId: "app9020exp",
+            storageBucket: "app9020exp.appspot.com",
+            messagingSenderId: "710551952894",
+            appId: "1:710551952894:web:69f08d59a296bd098bf4af",
+            measurementId: "G-JX2SK3BXRK"
+        };
+
+        // Inicializa o Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        var database = firebase.database();
+        var userRef = database.ref("UsuarioPec");
+
+        // Função para mostrar a seção de login (mantida da sua implementação)
+        function showLoginSection() {
+            document.getElementById('section-login').classList.remove('hidden');
+        }
+
+        // Função para esconder a seção de login (mantida da sua implementação)
+        function hideLoginSection() {
+            document.getElementById('section-login').classList.add('hidden');
+        }
+
+        // Função para remover a mensagem de erro após 2 segundos (mantida da sua implementação)
+        function hideErrorAfterDelay() {
+            setTimeout(() => {
+                document.getElementById('erro-login').textContent = '';
+            }, 2000); // 2000 milissegundos = 2 segundos
+        }
+
+        // Função para exibir a mensagem de sucesso (mantida da sua implementação)
+        function showSuccessMessage() {
+            document.getElementById('sucesso-login').textContent = 'Login realizado com sucesso!';
+        }
+
+        // Função para habilitar ou desabilitar o botão de login (mantida da sua implementação)
+        function toggleLoginButton() {
+            const username = document.getElementById('ldap-username').value.trim();
+            const password = document.getElementById('ldap-password').value.trim();
+            const loginButton = document.getElementById('login-button');
+
+            if (username && password) {
+                loginButton.disabled = false;
+            } else {
+                loginButton.disabled = true;
+            }
+        }
+
+        // Função para buscar o nome do usuário e preencher o campo de senha (mantida da sua implementação)
+        function handleLDAPChange() {
+            const ldapUsername = document.getElementById('ldap-username').value.trim();
+
+            if (ldapUsername === '') {
+                document.getElementById('ldap-password').disabled = true;
+                document.getElementById('ldap-password').value = '';
+                toggleLoginButton();
+                return;
+            }
+
+            document.getElementById('ldap-password').disabled = false;
+
+            userRef.orderByChild('LDAP').equalTo(ldapUsername).once('value', (snapshot) => {
+                if (snapshot.exists()) {
+                    snapshot.forEach((childSnapshot) => {
+                        const userData = childSnapshot.val();
+                        const fullName = userData.NOME; // Obtém o nome completo
+
+                        // Preenche o campo de senha com o nome completo
+                        document.getElementById('ldap-password').value = fullName;
+                        toggleLoginButton(); // Habilita o botão de login se ambos os campos estiverem preenchidos
+                        autoLoginIfUserExists(); // Tenta fazer login automaticamente se o usuário existir
+                    });
+                } 
+            }).catch((error) => {
+                console.error('Erro ao buscar usuário:', error);
+                document.getElementById('erro-login').textContent = 'Erro ao buscar usuário. Por favor, tente novamente mais tarde.';
+                hideErrorAfterDelay();
+            });
+        }
+// Lista de usuários administradores
+const usuariosAdministradores = ['DieppeLM', 'MesaEXP'];
+
+// Função para tentar fazer login automaticamente se o usuário existir
+function autoLoginIfUserExists() {
+    const ldapUsername = document.getElementById('ldap-username').value.trim();
+    const ldapPassword = document.getElementById('ldap-password').value.trim(); // Não converte para minúsculas
+
+    if (ldapUsername && ldapPassword) {
+        userRef.orderByChild('LDAP').equalTo(ldapUsername).once('value', (snapshot) => {
+            if (snapshot.exists()) {
+                let userFound = false;
+                snapshot.forEach((childSnapshot) => {
+                    const userData = childSnapshot.val();
+                    const storedPassword = userData.NOME; // Obtém o nome completo
+
+                    // Verifica se a senha inserida corresponde ao nome completo armazenado
+                    if (ldapPassword === storedPassword) {
+                        userFound = true;
+
+                        // Verifica se o usuário é administrador
+                        if (usuariosAdministradores.includes(ldapUsername)) {
+                            sessionStorage.setItem('loggedInUser', userData.NOME);
+                            showSuccessMessage(); // Exibe a mensagem de sucesso
+                            setTimeout(() => {
+                                hideLoginSection(); // Esconde a seção de login
+                                window.location.href = 'indexadm.html'; // Redireciona para a página indexadm.html
+                            }, 1000); // Delay de 1 segundo para a mensagem de sucesso aparecer
+                        } else {
+                            sessionStorage.setItem('loggedInUser', userData.NOME);
+                            showSuccessMessage(); // Exibe a mensagem de sucesso
+                            setTimeout(() => {
+                                hideLoginSection(); // Esconde a seção de login
+                                window.location.href = 'index1.html'; // Redireciona para a página index.html
+                            }, 1000); // Delay de 1 segundo para a mensagem de sucesso aparecer
+                        }
+
+                        return true; // Sai do loop assim que encontrar o usuário
+                    }
+                });
+
+                if (!userFound) {
+                    document.getElementById('erro-login').textContent = 'Nome ou senha incorretos.';
+                    hideErrorAfterDelay();
+                }
+            } else {
+                document.getElementById('erro-login').textContent = 'Usuário não encontrado. Por favor, verifique suas credenciais ou contate o desenvolvedor.';
+                hideErrorAfterDelay();
+            }
+        }).catch((error) => {
+            console.error('Erro ao buscar usuário:', error);
+            document.getElementById('erro-login').textContent = 'Erro ao buscar usuário. Por favor, contate o desenvolvedor.';
+            hideErrorAfterDelay();
+        });
+    }
+}
+
+
+        // Evento de mudança no campo LDAP (mantida da sua implementação)
+        document.getElementById('ldap-username').addEventListener('input', function() {
+            handleLDAPChange();
+        });
+
+        document.getElementById('ldap-password').addEventListener('input', toggleLoginButton);
+
+        // Evento de submit do formulário de login (mantida da sua implementação)
+        document.getElementById('login-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Evita o envio padrão do formulário
+
+            const ldapUsername = document.getElementById('ldap-username').value.trim();
+            const ldapPassword = document.getElementById('ldap-password').value.trim();
+
+            if (ldapUsername && ldapPassword) {
+                autoLoginIfUserExists(); // Tenta fazer login automaticamente se ambos os campos estiverem preenchidos
+            } else {
+                document.getElementById('erro-login').textContent = 'Por favor, preencha todos os campos.';
+                hideErrorAfterDelay();
+            }
+        });
+
+        // Função para lidar com a tentativa de sair da página sem fazer login (mantida da sua implementação)
+        function handleBeforeUnload(event) {
+            if (!document.getElementById('section-login').classList.contains('hidden')) {
+                event.preventDefault(); // Mostra uma mensagem padrão de bloqueio
+                event.returnValue = ''; // Necessário para a compatibilidade com alguns navegadores
+            }
+        }
+        // Adiciona o evento de antes de descarregar a página (mantida da sua implementação)
+        window.addEventListener('beforeunload', handleBeforeUnload);
+
+        // Inicialmente mostra a seção de login (mantida da sua implementação)
+        showLoginSection();
+    </script>
+
+</body>
+</html>
