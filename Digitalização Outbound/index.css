@@ -1,0 +1,364 @@
+/* Estilos gerais */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f0f0f0;
+    padding: 20px;
+}
+
+header {
+    background-color: #fda500;
+    color: rgb(0, 0, 0);
+    padding: 10px 0;
+    text-align: center;
+    margin-bottom: 20px;
+    border-radius: 20px;
+}
+
+.main-menu {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.main-menu h5 {
+    cursor: pointer;
+    padding: 10px;
+    margin: 0;
+    font-size: 18px;
+}
+
+h5:hover {
+    background-color: white;
+    color: black;
+    transition: 0.3s;
+    border-radius: 3px;
+}
+
+.main-menu img {
+    height: 40px;
+}
+
+section {
+    margin-bottom: 20px;
+}
+
+/* Estilos da tabela */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+th,
+td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+th {
+    background-color: #333;
+    color: white;
+}
+
+/* Estilos para telas menores */
+@media (max-width: 1093px) {
+    .main-menu {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .main-menu img {
+        order: -1;
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 600px) {
+    .main-menu h5 {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-menu {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .main-menu img {
+        height: 30px;
+    }
+
+    .input-form[type="datetime-local"] {
+        width: 100%;
+    }
+}
+
+#datetime-local{
+    padding: 5px;
+    border-radius: 5px;
+    outline: none;
+    border: none;
+    border: 1px solid gray;
+}
+
+
+#input-uc{
+    resize: none;
+    width: 100%;
+    padding: 10px;
+}
+
+/* Estilos para o textarea com a classe text-send */
+.text-send {
+    width: 100%;
+    height: 320px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: vertical;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    resize: none;
+}
+
+div{
+    margin-top: 2vh;
+}
+
+.text-send:focus {
+    border-color: #007bff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.button-textarea {
+    padding: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 19px;
+    width: 30%;
+    border-radius: 4px;
+    border: none;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ccc;
+}
+
+.button-textarea:hover {
+    border-color: #007bff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    cursor: pointer;
+    background-color: rgb(252, 183, 81);
+    transition: 0.8s;
+}
+
+/* Estilos para a seção de login (#section-login) */
+#section-login {
+    max-width: 360px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    background: linear-gradient(135deg, #ffffff 0%, #f9f9f9 100%);
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: inline-block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #fff;
+    transition: border-color 0.3s;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+h5 > a {
+    text-decoration: none;
+    color: black;
+}
+
+@media (max-width: 480px) {
+    #section-login {
+        padding: 15px;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    button {
+        padding: 12px;
+        font-size: 14px;
+    }
+}
+
+/* Estilos básicos para a seção */
+#section-five {
+    padding: 20px;
+    box-sizing: border-box;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+/* Estilos para os inputs e textarea */
+.input-form,
+.input-textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* Estilos específicos para o textarea */
+.input-textarea {
+    height: 100px; /* Ajuste conforme necessário */
+}
+
+/* Estilos para labels */
+.label-text {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* Estilos para o botão */
+.button-auditoria {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    display: block;
+    margin-top: 20px;
+}
+
+/* Ajustes de responsividade */
+@media (max-width: 768px) {
+    /* Adapta o padding e o tamanho dos inputs para telas menores */
+    #section-five {
+        padding: 10px;
+    }
+
+    .input-form,
+    .input-textarea {
+        font-size: 14px;
+    }
+
+    .button-auditoria {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Ajustes adicionais para dispositivos muito pequenos */
+    .input-form,
+    .input-textarea {
+        font-size: 12px;
+    }
+
+    .button-auditoria {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+}
+
+
+.modal-carregamento {
+    display: none; /* Inicialmente oculto */
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fundo semi-transparente */
+    z-index: 1000; /* Colocado sobre outros elementos */
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-conteudo {
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.spinner {
+    border: 8px solid #f3f3f3; /* Cinza claro */
+    border-top: 8px solid #3498db; /* Azul */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+p {
+    margin-top: 10px;
+}
+
