@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="StyleSheet" href="Login.css">
+    <title>Login</title>
+    <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script type="module" src="Login.js"></script>
+</head>
+<body>
+    <section class="Login" id="login">
+        <label for="name" class="nome" id="nome">Nome (E-mail):</label>
+        <input type="text" class="name" id="name" placeholder="Insira o seu e-mail" autocomplete="off" required>
+
+        <label for="password" class="senha" id="senha" style="display:none;">Senha:</label>
+        <input type="password" class="password" id="password" placeholder="Insira sua senha" required style="display:none;">
+        
+        <button type="button" class="logar" id="logar">Enviar Código</button>
+        
+        <!-- Mensagem de erro -->
+        <p id="error-message" style="display:none; color: red;">Erro: E-mail ou senha inválidos. Tente novamente.</p>
+    </section>
+</body>
+</html>

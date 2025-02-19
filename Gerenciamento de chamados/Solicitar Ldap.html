@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="StyleSheet" href="Solicitar Ldap.css">
+    <title>Busca de Gestor</title>
+    <h1 id="welcomeMessage">Bem-vindo!</h1>
+</head>
+<body>
+    <nav class="main-menu" id="main-menu">
+        <!-- Ícone de casa e link para 'Inicio' -->
+        <div class="home-link">
+            <a href="Inicio.html">Inicio</a>
+        </div>
+        <!-- Menu Hambúrguer -->
+        <div class="nav-toggle" id="menuToggle">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+        <!-- Links do menu -->
+        <div class="nav-links" id="navLinks">
+            <a href="Status do chamado.html">Status do chamado</a>
+            <a href="Senha-Ldap.html">Ldap/Senha</a>
+            <a href="Alteração-de-missão.html">Alteração de missão</a>
+        </div>
+    </nav>
+
+    <!-- Modal de confirmação -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span id="close-modal" class="close">&times;</span>
+            <h2>Confirmar Solicitação</h2>
+            <p>Tem certeza de que deseja abrir um chamado para <span id="usuario-nome"></span>?</p>
+            <button id="confirmar-chamado" class="botao-chamado">Confirmar</button>
+            <button id="cancelar-chamado" class="botao-chamado" style="background-color: red;">Cancelar</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>Buscar Gestores</h2>
+        <label for="gestor-name">Selecione o nome do Gestor:</label>
+        <select id="gestor-name">
+            <!-- As opções de gestor serão adicionadas dinamicamente com JS -->
+        </select>
+        <button id="search-button">Buscar</button>
+
+        <div id="resultados">
+            <!-- Aqui os resultados da busca serão exibidos -->
+        </div>
+    </div>
+
+    <script type="module" src="Solicitar Ldap.js"></script>
+
+</body>
+</html>
