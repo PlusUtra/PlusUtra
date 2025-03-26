@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Importar Dados para o Firebase</title>
+    <!-- Carregue o Firebase com o tipo de módulo -->
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-analytics.js";
+        import { getDatabase, ref, set, push } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAQgBecZxzPAAAgEu3fDRGCbdClrP-0HKo",
+            authDomain: "portal-troca-turno.firebaseapp.com",
+            databaseURL: "https://portal-troca-turno-default-rtdb.firebaseio.com",
+            projectId: "portal-troca-turno",
+            storageBucket: "portal-troca-turno.firebasestorage.app",
+            messagingSenderId: "608578837996",
+            appId: "1:608578837996:web:6efae1d9d945c88b5b74c9",
+            measurementId: "G-6K18TSHYJ7"
+        };
+
+        // Inicializando Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app); // Acesso ao banco de dados
+        const analytics = getAnalytics(app); // Inicia o Firebase Analytics
+
+        // Função para ler o arquivo XLSX
+        function handleFileUpload(event) {
+            const file = event.target.files[0];
+            if (!file) {
+                alert("Por favor, selecione um arquivo XLSX.");
+                return;
+            }
+
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                const data = e.target.result;
+                const workbook = XLSX.read(data, { type: 'binary' });
+
+                // Seleciona a primeira planilha
+                const sheetName = workbook.SheetNames[0];
+                const sheet = workbook.Sheets[sheetName];
+
+                // Converte os dados da planilha para um formato JSON
+                const jsonData = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+
+                // Exibe os dados lidos no console
+                console.log(jsonData);
+
+                // Enviar os dados para o Firebase
+                uploadToFirebase(jsonData);
+            };
+
+            reader.readAsBinaryString(file);
+        }
+
+        // Função para enviar os dados para o Firebase
+        function uploadToFirebase(data) {
+            const refUsers = ref(db, 'Coordenadores'); // Referência ao nó 'Coordenadores' no Firebase
+
+            // Itera sobre os dados e envia cada linha para o Firebase
+            data.forEach((row, index) => {
+                if (index > 0) { // Ignora o cabeçalho (primeira linha)
+                    const [ldap, nome, area, cargo, turno, status] = row;
+
+                    // Cria uma nova chave única para cada item
+                    const newUserRef = push(refUsers);
+                    set(newUserRef, {
+                        ldap: ldap,
+                        nome: nome,
+                        area: area,
+                        cargo: cargo,
+                        turno: turno,  // Fixed typo here: 'tunro' -> 'turno'
+                        status: status,
+                    });
+                }
+            });
+
+            alert("Dados enviados para o Firebase!");
+        }
+
+        // Evento de upload do arquivo
+        document.getElementById('file-input').addEventListener('change', handleFileUpload);
+
+        // Botão para enviar os dados para o Firebase
+        document.getElementById('upload-btn').addEventListener('click', function() {
+            const fileInput = document.getElementById('file-input');
+            if (fileInput.files.length > 0) {
+                handleFileUpload({ target: { files: fileInput.files } });
+            } else {
+                alert("Selecione um arquivo antes de enviar.");
+            }
+        });
+    </script>
+
+    <!-- Bibliotecas de leitura de XLSX -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+
+</head>
+<body>
+
+    <!-- Campo para selecionar o arquivo XLSX -->
+    <input type="file" id="file-input" accept=".xlsx"/>
+    <button id="upload-btn">Enviar para Firebase</button>
+
+</body>
+</html>

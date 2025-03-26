@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <title>Formulário de Troca de Turno</title>
+</head>
+<body>
+
+    <form id="form-troca-turno" method="post">
+        <h3>ATA DE TROCA DE TURNO</h3>
+
+        <!-- Campo Data e Carimbo -->
+        <label for="data-carimbo">Data:</label><br>
+        <input type="text" id="data-carimbo" name="data-carimbo" required disabled><br><br>
+
+        <!-- Campo Área -->
+        <label for="area">ÁREA:</label><br>
+        <select id="area" name="area" required>
+            <option value="">Selecione uma área</option>
+            <!-- Preenchido dinamicamente com áreas do Firebase -->
+        </select><br><br>
+
+        <!-- Campo Nome -->
+        <label for="nome">NOME:</label><br>
+        <select id="nome" name="nome" required disabled>
+            <option value="">Selecione uma área primeiro</option>
+            <!-- Preenchido dinamicamente com nomes do Firebase -->
+        </select><br><br>
+
+        <!-- Campo Turno -->
+        <label for="turno">TURNO:</label><br>
+        <select id="turno" name="turno" required disabled>
+            <option value="">Selecione um turno</option>
+            <!-- Preenchido dinamicamente com turnos do Firebase -->
+        </select><br><br>
+
+        <!-- Campo Realizando Troca de Turno Com Quem -->
+        <label for="troca-turno">TROCA DE TURNO COM QUEM?</label><br>
+        <select id="troca-turno" name="troca-turno" required>
+            <option value="quem1" selected>Selecione a troca de turno</option>
+            <!-- Mais opções se necessário -->
+        </select><br><br>
+
+        <!-- Campo Observações -->
+        <label for="observacoes">Observações:</label><br>
+        <textarea id="observacoes" name="observacoes" rows="4" cols="50" required></textarea><br><br>
+
+        <button type="submit">Enviar</button>
+
+        <script type="module" src="index.js"></script>
+        <script>
+            // Função para redirecionar para a página fedd.html ao clicar no botão
+            document.getElementById("form-troca-turno").addEventListener("submit", function(event) {
+                event.preventDefault(); // Evita o envio tradicional do formulário
+                window.location.href = "Feed_turnos.html"; // Redireciona para fedd.html
+            });
+        </script>
+
+    </form>
+</body>
+</html>

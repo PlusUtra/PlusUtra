@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="StyleSheet" href="Feed_turnos.css">
+    <title>Feed de Publicações</title>
+    <style>
+      
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>📢 Feed de Publicações</h2>
+
+        <div class="filter-container">
+            <label for="filter-date">Filtrar por data:</label>
+            <input type="date" id="filter-date">
+            <button onclick="filterByDate()" style="padding: 10px; border-radius:4px; border: solid 1px black; ">Buscar</button>
+            <button onclick="resetFilters()" style="padding: 10px; border-radius:4px; border: solid 1px black; ">Limpar Filtro</button> <!-- Novo botão -->
+        </div>
+        
+
+        <div class="filter-buttons">
+            <button onclick="filterFeed('Todos')">Todos</button>
+            <button onclick="filterFeed('XD')">XD</button>
+            <button onclick="filterFeed('STD IN')">STD IN</button>
+            <button onclick="filterFeed('STD OUT')">STD OUT</button>
+            <button onclick="filterFeed('ED')">ED</button>
+        </div>
+        <br>
+        <br>
+
+        <div id="feed"></div>
+    </div>
+
+
+    <script type="module" src="Feed_turnos.js"></script>
+</body>
+</html>
