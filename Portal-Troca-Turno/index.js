@@ -5,14 +5,14 @@ import { getDatabase, ref, get, push, child } from "https://www.gstatic.com/fire
 
 // Configuração do Firebase
 const firebaseConfig = {
-    apiKey: "AIzaSyAQgBecZxzPAAAgEu3fDRGCbdClrP-0HKo",
-    authDomain: "portal-troca-turno.firebaseapp.com",
-    databaseURL: "https://portal-troca-turno-default-rtdb.firebaseio.com",
-    projectId: "portal-troca-turno",
-    storageBucket: "portal-troca-turno.firebasestorage.app",
-    messagingSenderId: "608578837996",
-    appId: "1:608578837996:web:6efae1d9d945c88b5b74c9",
-    measurementId: "G-6K18TSHYJ7"
+    apiKey: "",
+    authDomain: "",
+    databaseURL: "",
+    projectId: "",
+    storageBucket: "",
+    messagingSenderId: "",
+    appId: "",
+    measurementId: ""
 };
 
 // Inicializando Firebase
