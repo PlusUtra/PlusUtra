@@ -1,16 +1,15 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-app.js";
 import { getDatabase, ref, query, orderByChild, equalTo, get } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-database.js";
 
-// Configuração do Firebase
 const firebaseConfig = {
-    apiKey: "AIzaSyBbiG8N7mdznEZxpE9p0zlWasNT6bGDB3E",
-    authDomain: "oms-a-c9762.firebaseapp.com",
-    databaseURL: "https://oms-a-c9762-default-rtdb.firebaseio.com",
-    projectId: "oms-a-c9762",
-    storageBucket: "oms-a-c9762.firebasestorage.app",
-    messagingSenderId: "571808116138",
-    appId: "1:571808116138:web:3064f5406322204299cfd3",
-    measurementId: "G-Q98PRFJMYN"
+    apiKey: "-",
+    authDomain: "-",
+    databaseURL: "-",
+    projectId: "-",
+    storageBucket: "-",
+    messagingSenderId: "-",
+    appId: "-",
+    measurementId: "-"
 };
 
 // Inicializa o Firebase
