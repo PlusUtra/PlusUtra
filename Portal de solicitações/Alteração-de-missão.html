@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Alteração-de-missão.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <title>Inicio</title>
+    
+    <h1 id="welcomeMessage">Bem-vindo!</h1>
+
+</head>
+<body>
+    
+    <nav class="main-menu" id="main-menu">
+        <!-- Ícone de casa e link para 'Inicio' -->
+        <div class="home-link">
+            <a href="Inicio.html">Inicio</a>
+        </div>
+        <div class="nav-toggle" id="menuToggle">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+        <div class="nav-links" id="navLinks">
+            <a href="Status do chamado.html">Status do chamado</a>
+            <a href="Senha-Ldap.html">Ldap/Senha</a>
+            <a href="Alteração-de-missão.html">Alteração de missão</a>
+        </div>
+    </nav>
+
+
+
+
+
+    <div class="form-container">
+        <h2>Formulário de Solicitação</h2>
+        <form id="alteracao-form" method="POST" action="#"> 
+            <div class="form-group">
+                <label for="nome">Nome</label>
+                <select id="nome" name="nome" autocomplete="off">
+                    <option value="" selected disabled>Selecione um colaborador</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="cargo">Cargo</label>
+                <input type="text" id="cargo" name="cargo" disabled autocomplete="off" placeholder="Preenchimento automático" required>
+            </div>
+
+            <div class="form-group">
+                <label for="area">Área</label>
+                <input type="text" id="area" name="area" disabled placeholder="Preenchimento automático" autocomplete="off" required >
+            </div>
+
+            <div class="form-group">
+                <label for="turno">Turno</label>
+                <select id="turno" name="turno" autocomplete="off" disabled >
+                    <option value="Selecione o turno" selected disabled>Preenchimento automático</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="gestor_dhl">Gestor DHL</label>
+                <input type="text" id="gestor_dhl" name="gestor_dhl" disabled placeholder="Preenchimento automático" required >
+            </div>
+
+            <div class="form-group">
+                <label for="ldap">LDAP</label>
+                <input type="text" id="ldap" name="ldap" disabled placeholder="Preenchimento automático" required >
+            </div>
+
+            <div class="form-group">
+                <label for="requerimento">Requerimento</label>
+                <textarea id="requerimento" name="requerimento" rows="4" placeholder="Explique a sua solicitação" required ></textarea>
+            </div>
+
+            <div class="form-group">
+                <label style="display: none;" for="cod_chamado">COD. CHAMADO</label>
+                <input style="display: none;" type="text" id="cod_chamado" name="cod_chamado" placeholder="Preenchimento realizado pelo administrador">
+            </div>
+
+            <button type="submit" class="submit-btn">Enviar Solicitação</button>
+        </form>
+    </div>
+
+
+    <script type="module" src="Alteração-de-missão.js">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.0/firebase-app.js";
+        import { getDatabase, ref, query, orderByChild, equalTo, get } from "https://www.gstatic.com/firebasejs/11.3.0/firebase-database.js";
+        
+        // Configuração do Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyBbiG8N7mdznEZxpE9p0zlWasNT6bGDB3E",
+            authDomain: "oms-a-c9762.firebaseapp.com",
+            databaseURL: "https://oms-a-c9762-default-rtdb.firebaseio.com",
+            projectId: "oms-a-c9762",
+            storageBucket: "oms-a-c9762.firebasestorage.app",
+            messagingSenderId: "571808116138",
+            appId: "1:571808116138:web:3064f5406322204299cfd3",
+            measurementId: "G-Q98PRFJMYN"
+        };
+        
+        // Inicializando Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        
+        // Recuperar o nome do usuário logado do sessionStorage
+        const loggedInUser = sessionStorage.getItem("loggedInUser");
+        
+        if (loggedInUser) {
+            // Preenche o campo "Gestor DHL" com o nome do usuário logado
+            document.getElementById("gestor_dhl").value = loggedInUser;
+        
+            // Exibe a mensagem de boas-vindas com o nome do usuário logado
+            document.getElementById("welcomeMessage").textContent = "Bem-vindo, " + loggedInUser + "!";
+        
+            // Buscar colaboradores associados ao gestor
+            carregarColaboradores(loggedInUser);
+        } else {
+            alert("Você não está logado. Redirecionando para a página de login.");
+            window.location.href = "login.html";
+        }
+        
+        // Função para carregar colaboradores associados ao gestor
+        function carregarColaboradores(gestor) {
+            const dbRef = ref(db, 'users');
+            const q = query(dbRef, orderByChild('gestor'), equalTo(gestor));
+        
+            get(q).then((snapshot) => {
+                const colaboradoresSelect = document.getElementById('nome');
+                if (snapshot.exists()) {
+                    const dados = snapshot.val();
+                    colaboradoresSelect.innerHTML = '<option value="" selected disabled>Selecione um colaborador</option>'; // Limpa as opções anteriores
+        
+                    Object.values(dados).forEach(colaborador => {
+                        const option = document.createElement('option');
+                        option.value = colaborador.nome;
+                        option.textContent = colaborador.nome;
+                        colaboradoresSelect.appendChild(option);
+                    });
+                } else {
+                    colaboradoresSelect.innerHTML = '<option value="" disabled>Não há colaboradores para este gestor.</option>';
+                }
+            }).catch((error) => {
+                console.error("Erro ao carregar colaboradores:", error);
+            });
+        }
+        
+        // Adicionar evento para preencher os dados do colaborador selecionado
+        document.getElementById('nome').addEventListener('change', function() {
+            const nomeColaborador = this.value;
+            if (nomeColaborador) {
+                preencherDadosColaborador(nomeColaborador);
+            }
+        });
+        
+        // Função para preencher dados do colaborador ao ser selecionado
+        function preencherDadosColaborador(nome) {
+            const dbRef = ref(db, 'users');
+            const q = query(dbRef, orderByChild('nome'), equalTo(nome));
+        
+            get(q).then((snapshot) => {
+                if (snapshot.exists()) {
+                    const dados = snapshot.val();
+                    const colaborador = Object.values(dados)[0]; // Como 'nome' é único, pegar o primeiro resultado
+        
+                    // Preencher os campos do colaborador
+                    document.getElementById("cargo").value = colaborador.cargo;
+                    document.getElementById("area").value = colaborador.area;
+                    document.getElementById("turno").innerHTML = `<option value="${colaborador.turno}" selected>${colaborador.turno}</option>`;
+                    document.getElementById("ldap").value = colaborador.ldap;
+                }
+            }).catch((error) => {
+                console.error("Erro ao preencher dados do colaborador:", error);
+            });
+        }
+        
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="StyleSheet" href="Base CD.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+<title>Base CD</title>
+</head>
+<body>
+    <h1 id="welcomeMessage">Bem-vindo!</h1>
+    <nav class="main-menu" id="main-menu">
+        <!-- Ícone de casa e link para 'Inicio' -->
+        <a href="Inicio.html" style="font-size: 30px; display: flex; align-items: center;">
+            <i class="fa-solid fa-house" style="margin-right: 8px;"></i>
+            Inicio
+        </a>
+    </nav>
+    
+    
+    <!-- Seção do Cabeçalho -->
+    <section class="Cabeçalho" id="Cabeçalho">
+        <!-- Campo de pesquisa -->
+        <input type="search" id="search" class="search" placeholder="Buscar por nome..." aria-label="Search" autocomplete="off" />
+
+        <!-- Tabela de acompanhamento -->
+        <table class="tabela-acompanhamento" id="tabela">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Cargo</th>
+                    <th>Gestor</th>
+                    <th>LDAP</th>
+                </tr>
+            </thead>
+            <tbody id="tabela-body">
+                <!-- Dados serão preenchidos dinamicamente aqui -->
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Scripts -->
+    <script type="module" src="Base CD.js"></script>
+</body>
+</html>

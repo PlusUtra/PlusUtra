@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="verificacao.css">
+    <title>Verificação de Código</title>
+</head>
+<body>
+    
+    <section class="verification">
+        <h1>Digite o ldap </h1>
+        <input style="padding: 10px; border-radius: 4px; border: none; border: 1px solid black; " type="email" id="verificationCodeEmail" placeholder="Informe seu ldap" autocomplete="off" required>
+        <h1>Digite a senha</h1>
+        <input type="password" id="verificationCode" placeholder="Informe seu Ldap" required>
+        <button id="verifyButton">Verificar</button>
+        <p id="error-message" style="display:none; color: red;">Código inválido ou expirado.</p>
+    </section>
+
+    <script type="module" src="verificacao.js"></script>
+</body>
+</html>

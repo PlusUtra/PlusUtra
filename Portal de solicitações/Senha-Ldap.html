@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Senha-Ldap.css"> <!-- Arquivo de estilo CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <title>Busca de Gestores e Chamados</title>
+
+</head>
+<body>
+   
+    <nav class="main-menu" id="main-menu">
+        <!-- Ícone de casa e link para 'Inicio' -->
+        <div class="home-link">
+            <a href="Inicio.html">Inicio</a>
+        </div>
+        <div class="nav-toggle" id="menuToggle">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+        <div class="nav-links" id="navLinks">
+            <a href="Status do chamado.html">Status do chamado</a>
+            <a href="Senha-Ldap.html">Ldap/Senha</a>
+            <a href="Alteração-de-missão.html">Alteração de missão</a>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <h1 id="welcomeMessage">Bem-vindo!</h1>
+
+        <div class="form-container">
+            <h2>Busque seus chamados</h2>
+            <label for="gestor-name">Gestor:</label>
+            <input type="text" id="gestor-name" disabled>
+        </div>
+    
+        <!-- Resultado da consulta -->
+        <div class="result-container">
+            <label for="date-filter" style="margin-top: 20px;">Filtrar por Data:</label>
+            <input type="date" id="date-filter">
+            <button id="search-date-button" style="margin-top: 10px; padding:10px; border-radius:4px; ">Buscar</button>
+        </div>
+
+        <h3 style="margin-top: 30px;">Chamados para o Gestor</h3>
+        <div id="resultados">
+            <!-- Os chamados serão exibidos aqui -->
+        </div>
+    </div>
+
+    <script type="module" src="Senha-Ldap.js"></script>
+
+</body>
+</html>

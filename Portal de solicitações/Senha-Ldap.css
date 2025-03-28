@@ -1,0 +1,327 @@
+/* Reset básico de estilo */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Corpo da página */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f7fa;
+    color: #333;
+    line-height: 1.6;
+}
+
+.alteracao{
+    border: 1px solid rgb(214, 213, 213);
+    border-radius: 4px;
+    padding: 8px;
+}
+
+
+h1{
+    font-size: 100%;
+    text-align: center;
+}
+
+/* Cabeçalho e navegação */
+nav.main-menu {
+    background-color: #4171a5;
+    padding: 15px;
+    text-align: center;
+}
+
+nav.main-menu a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 20px;
+    display: inline-flex;
+    align-items: center;
+    width: 20%;
+    justify-content: center;
+}
+
+nav.main-menu a:hover {
+    transition: 0.2s;
+    background-color: white;
+    color: black;
+}
+
+nav.main-menu a i {
+    margin-right: 8px;
+}
+
+/* Container principal */
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Formulário de busca */
+.form-container {
+    margin-bottom: 30px;
+}
+
+.form-container h2 {
+    color: #4171a5;
+    margin-bottom: 15px;
+    font-size: 24px;
+    text-align: center;
+}
+
+.form-container label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.form-container select, .form-container input, .form-container button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.form-container select:focus, .form-container input:focus, .form-container button:focus {
+    outline: none;
+    border-color: #4171a5;
+}
+
+/* Botões */
+button {
+    background-color: #4171a5;
+    color: white;
+    cursor: pointer;
+    border: none;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Resultados */
+.result-container {
+    margin-top: 20px;
+}
+
+h3 {
+    margin-top: 30px;
+    color: #4171a5;
+}
+
+#resultados {
+    margin-top: 20px;
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+/* Campo de filtro de data */
+#date-filter {
+    padding: 8px;
+    border: 1px solid gray;
+    border-radius: 8px;
+    outline: none;
+    font-size: 18px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+/* Botão de busca */
+#search-button {
+    padding: 15px;
+    border-radius: 10px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    body {
+        font-size: 14px;
+    }
+
+    .container {
+        padding: 15px;
+    }
+
+    nav.main-menu a {
+        font-size: 18px;
+        width: 33.33%;
+        text-align: center;
+    }
+
+    nav.main-menu a i {
+        font-size: 16px;
+    }
+
+    .form-container label,
+    .form-container select,
+    .form-container input,
+    .form-container button {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    h3 {
+        font-size: 22px;
+    }
+
+    #date-filter {
+        font-size: 16px;
+    }
+
+    .chamado {
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        font-size: 12px;
+    }
+
+    .container {
+        padding: 10px;
+    }
+
+    nav.main-menu a {
+        font-size: 16px;
+        width: 50%;
+        text-align: center;
+    }
+
+    nav.main-menu a i {
+        font-size: 14px;
+    }
+
+    .form-container select,
+    .form-container input,
+    .form-container button {
+        font-size: 12px;
+        padding: 8px;
+    }
+
+    table th, table td {
+        font-size: 12px;
+        padding: 8px;
+    }
+
+    h2 {
+        font-size: 18px;
+    }
+
+    h3 {
+        font-size: 20px;
+    }
+
+    #date-filter {
+        font-size: 14px;
+    }
+
+    .chamado {
+        margin-bottom: 8px;
+    }
+}
+
+/* Estilo para chamados */
+.chamado {
+    margin-bottom: 5px;
+    border: 1px solid rgb(223, 221, 221);
+    border-radius: 8px;
+    padding: 10px;
+    background-color: #fafafa;
+}
+
+* Links de navegação */
+nav a {
+    text-decoration: none;
+    color: black;
+    display: inline-block;
+    font-size: 20px;
+    padding: 12px;
+}
+
+/* Estilo do menu hamburguer */
+.nav-toggle {
+    display: none; /* Inicialmente escondido */
+    cursor: pointer;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.nav-toggle .bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    background-color: black;
+    transition: 0.3s;
+}
+
+/* Links de navegação agrupados */
+.nav-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Estilo dos links de navegação ao passar o mouse */
+nav a:hover {
+    background-color: rgb(255, 166, 0);
+    color: black;
+}
+
+/* Responsividade para dispositivos móveis */
+@media (max-width: 768px) {
+    /* Exibir o ícone hamburguer no mobile */
+    .nav-toggle {
+        display: block;
+    }
+
+    /* Esconder os links de navegação inicialmente */
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+    }
+
+    /* Mostrar os links ao clicar no menu hamburguer */
+    .nav-links.active {
+        display: flex;
+    }
+
+    /* Animação de transformação do ícone hambúrguer */
+    .nav-toggle.active .bar:nth-child(1) {
+        transform: rotate(-45deg);
+        top: 8px;
+    }
+
+    .nav-toggle.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    .nav-toggle.active .bar:nth-child(3) {
+        transform: rotate(45deg);
+        top: -8px;
+    }
+
+    nav a {
+        font-size: 18px;
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 100%;
+    }
+}
